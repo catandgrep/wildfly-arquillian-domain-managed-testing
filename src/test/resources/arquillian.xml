@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<arquillian xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://jboss.org/schema/arquillian"
+	xsi:schemaLocation="http://jboss.org/schema/arquillian http://www.jboss.org/schema/arquillian/arquillian_1_0.xsd">
+
+	<defaultProtocol type="Servlet 3.0" />
+	<!-- <defaultProtocol type="jmx-as7" /> -->
+	
+	<engine>
+		<property name="deploymentExportPath">target/deployments</property>
+	</engine>
+
+	<container qualifier="jboss" default="true">
+		<configuration>
+
+			<property name="jbossHome">${jboss.home}</property>
+			<property name="startupTimeoutInSeconds">300</property>
+
+			<property name="managementPort">9990</property>
+			
+			<property name="containerNameMap">
+				master:server-one=server-one,
+				master:server-two=server-two
+			</property>
+
+			<property name="javaVmArguments">-Darquillian.debug=true</property>
+
+		</configuration>
+	</container>
+
+</arquillian>
