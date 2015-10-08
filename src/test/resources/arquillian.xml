@@ -22,7 +22,7 @@
 				master:server-one=server-one,
 				master:server-two=server-two
 			</property>
-
+			<property name="enableAssertions">false</property>
 			<property name="javaVmArguments">-Darquillian.debug=true</property>
 
 		</configuration>

@@ -11,12 +11,48 @@ with 'root'-exception:
 _See full stack trace at the end of this file_
 
 
-The more interesting Log is from the Host Controller, _see below_.
+The more interesting Log is from the Host Controller:
+
+```
+java.lang.AssertionError
+	at org.jboss.as.controller.OperationContextImpl.readResourceFromRoot(OperationContextImpl.java:707)
+```
+
+_full trace see below_
+
+# Root cause
+
+Bug in Wildfly Core - reported here: https://issues.jboss.org/browse/WFCORE-988
+
+Wildfly Arquillian Container Domain Menaged Configuration enables assertions by default:
+
+```
+org.jboss.as.arquillian.container.domain.managed.ManagedDomainContainerConfiguration.enableAssertions = true
+```
+
+# Workaround
+
+Add enabledAssertions=false to your arquillian.xml.
+
+```
+<arquillian>
+
+  ...
+
+  <container qualifier="jboss" default="true">
+    ...
+    <property name="enableAssertions">false</property>
+    ...
+  </container>
+
+</arquillian>
+``` 
 
 
-# Reproduce
+# Reproduce the erroneous scenario
 
 * Clone this project
+* Set enableAssertions = true in arquillian.xml
 * run ```mvn clean verify```
 
 
